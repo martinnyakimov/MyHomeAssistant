@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>About</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="about-item">
+    <h3>[Server] Internal Storage</h3>
+    <hr/>
+    <div>
+      <div style="margin: 10px 3px; display: block;">
+        <span>Available: <strong>{{ availableStorage ? availableStorage : 'N/A' }} GB</strong></span>
+        <span style="text-align: right;">Total: <strong>{{ totalStorage ? totalStorage : 'N/A' }} GB</strong></span>
+      </div>
+      <progress-bar [progress]="freeStoragePercentage" [color]="'#007bff'"></progress-bar>
+    </div>
+  </div>
+  <div>
+    <h3 [class]="!isConnected ? 'error-label' : null">[Server] IP</h3>
+    <hr/>
+    <div>
+      <ion-item id="ip-change">
+        <ion-label>IP</ion-label>
+        <ion-input [(ngModel)]="serverIp"></ion-input>
+        <button ion-button item-end (click)="save()">
+          <ion-icon name="checkmark" class="button-icon"></ion-icon>
+          Save
+        </button>
+      </ion-item>
+      <ion-card class="info-card" margin-top>
+        <ion-card-content text-center>
+          After changing the IP address, please restart the application!
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

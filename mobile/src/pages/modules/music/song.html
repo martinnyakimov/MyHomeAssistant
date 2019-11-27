@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="title != null || title != ''">{{ title }}</ion-title>
+    <ion-title *ngIf="title == null || title == ''"><em>No title</em></ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text>Close</span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding text-center>
+    <div *ngIf="mode == 'show'">
+      <h4 margin-top>{{ title }}</h4>
+
+      <button ion-button color="danger" (click)="delete(id)">
+        <ion-icon name="trash" class="button-icon"></ion-icon>
+        Delete
+      </button>
+    </div>
+    <div *ngIf="mode == 'add'">
+      <h4 margin-top>Add new link</h4>
+      <ion-card class="info-card">
+        <ion-card-content>
+          If you do not fill the title, it will be filled in automatically by the given link
+        </ion-card-content>
+      </ion-card>
+
+      <ion-item>
+        <ion-label>Title</ion-label>
+        <ion-input [(ngModel)]="title"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>URL</ion-label>
+        <ion-input [(ngModel)]="url"></ion-input>
+      </ion-item>
+
+      <div margin-top>
+        <button ion-button [disabled]="isDisabled" (click)="save()">
+          <ion-icon name="checkmark" class="button-icon"></ion-icon>
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>
+

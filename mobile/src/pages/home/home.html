@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding text-center>
+  <div *ngIf="isConnected">
+    <div *ngIf="isCordova()">
+      <button ion-button large (click)="startListening()">
+        <ion-icon name="mic"></ion-icon>
+      </button>
+      <button ion-button large (click)="stopListening()" *ngIf="isIos()">
+        <ion-icon name="mic-off"></ion-icon>
+      </button>
+    </div>
+    <div *ngIf="!isCordova()">
+      <ion-card class="warning-card" margin-top>
+        <ion-card-content>
+          Your device doesn't support voice commands.
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+  <div *ngIf="!isConnected">
+    <ion-card>
+      <ion-card-content class="error-card">
+        You must connect to the server in order to use MyHomeAssistant.
+      </ion-card-content>
+    </ion-card>
+    <button ion-button color="light" (click)="goToAboutPage()">
+      <ion-icon name="settings" class="button-icon"></ion-icon>
+      Change IP
+    </button>
+  </div>
+</ion-content>

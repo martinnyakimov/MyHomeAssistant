@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Modules</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let module of modules" (click)="openModule(module)">
+      <ion-icon [name]="module.icon" item-start></ion-icon>
+      {{module.title}}
+    </button>
+  </ion-list>
+</ion-content>

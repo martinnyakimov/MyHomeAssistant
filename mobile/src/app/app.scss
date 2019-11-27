@@ -1,0 +1,55 @@
+.primary-color {
+  color: $primary-color;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.progress-outer {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+ion-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 90px 1px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.button-icon {
+  margin-right: 5px;
+}
+
+.action-icon {
+  margin: 0 5px 0 5px;
+  font-size: 23px;
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: transparent;
+  box-shadow: inset 0 -1px 0 0 #dedede;
+}
+
+.error-label {
+  color: #c83131;
+}
+
+.info-card {
+  background-color: #5bc0de;
+  color: #fff;
+}
+
+.warning-card {
+  background-color: #ffc107;
+}
+
+.error-card {
+  background-color: #c83131;
+  color: #fff;
+}

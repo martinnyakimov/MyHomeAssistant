@@ -1,0 +1,7 @@
+not_found           not_found
+greeting            hi hello hey good morning good afternoon good evening what's up whats up
+thanks              thanks thank you
+play_music          play music play songs turn on the music
+stop_music          stop music stop songs turn off the music
+weather             what's the weather is it sunny is it cold is it hot
+room_temperature    room temperature

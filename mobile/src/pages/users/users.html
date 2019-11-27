@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Users</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div padding-top padding-left text-center>
+      <button ion-button color="secondary" (click)="create()">
+        <ion-icon name="add" class="button-icon"></ion-icon>
+        Create user
+      </button>
+    </div>
+    <ion-list>
+      <ion-item>
+        <ion-label><strong>Name</strong></ion-label>
+        <ion-label text-right><strong>UUID</strong></ion-label>
+      </ion-item>
+      <div *ngFor="let user of users">
+        <ion-item (click)="selectUser(user['id'])">
+          <ion-label>{{ user['name'] }}</ion-label>
+          <ion-label text-right>{{ user['uuid'] }}</ion-label>
+        </ion-item>
+      </div>
+      <div *ngIf="users.length == 0">
+        <ion-item>
+          <ion-label text-center>The list is empty.</ion-label>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>

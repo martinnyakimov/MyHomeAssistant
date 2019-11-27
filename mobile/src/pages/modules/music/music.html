@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Music</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <div padding-top padding-left text-center>
+      <button ion-button color="secondary" (click)="add()">
+        <ion-icon name="add" class="button-icon"></ion-icon>
+        Add new link
+      </button>
+      <button ion-button color="danger" (click)="stop()" *ngIf="isThereActiveSong == 1">
+        <ion-icon name="square" class="button-icon"></ion-icon>
+        Stop Music
+      </button>
+    </div>
+    <ion-list>
+      <ion-item>
+        <ion-label><strong>Title</strong></ion-label>
+        <ion-label text-right><strong>Actions</strong></ion-label>
+      </ion-item>
+      <div *ngFor="let song of songs">
+        <ion-item >
+          <ion-label (click)="songDetails(song['id'])">
+            <span *ngIf="song['title'] != null || song['title'] != ''">{{ song['title'] }}</span>
+            <span *ngIf="song['title'] == null || song['title'] == ''"><em>No title</em></span>
+          </ion-label>
+          <ion-label text-right>
+            <ion-icon name="play" class="action-icon" color="secondary" (click)="play(song['id'])"></ion-icon>
+            <ion-icon name="trash" class="action-icon" color="danger" (click)="delete(song['id'])"></ion-icon>
+          </ion-label>
+        </ion-item>
+      </div>
+      <div *ngIf="songs.length == 0">
+        <ion-item>
+          <ion-label text-center>The list is empty.</ion-label>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>

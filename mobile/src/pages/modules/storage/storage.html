@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Storage</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl("http://"+ip+":8080/upload.html")'
+          style="width: 100%; border: 0;">
+  </iframe>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Log</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding-top>
+  <ion-list>
+    <ion-item>
+      <ion-label><strong>Date and time</strong></ion-label>
+    </ion-item>
+    <div *ngFor="let item of log">
+      <ion-item>
+        <ion-label>{{ item['timestamp'] }}</ion-label>
+        <ion-label text-right>
+          <ion-icon name="trash" class="action-icon" color="danger" (click)="delete(item['id'])"></ion-icon>
+        </ion-label>
+      </ion-item>
+    </div>
+    <div *ngIf="log.length == 0">
+      <ion-item>
+        <ion-label text-center>The list is empty.</ion-label>
+      </ion-item>
+    </div>
+
+  </ion-list>
+</ion-content>

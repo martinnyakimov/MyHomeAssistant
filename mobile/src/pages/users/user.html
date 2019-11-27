@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="name != null">User: {{ name }}</ion-title>
+    <ion-title *ngIf="name == null && mode == 'create'">Create user</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text>Close</span>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div padding *ngIf="mode == 'edit' || mode == 'create'" text-center>
+    <h4 margin-top *ngIf="mode == 'create'">Create user</h4>
+
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input [(ngModel)]="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Email</ion-label>
+      <ion-input [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>UUID</ion-label>
+      <ion-input [(ngModel)]="uuid"></ion-input>
+    </ion-item>
+
+    <ion-card class="info-card" margin-top *ngIf="mode == 'edit' && !(uuid == null || uuid == '')">
+      <ion-card-content>
+        It is <strong>not</strong> recommended to change user's UUID!
+      </ion-card-content>
+    </ion-card>
+
+    <div margin-top>
+      <button ion-button [disabled]="isDisabled" (click)="save(mode)">
+        <ion-icon name="checkmark" class="button-icon"></ion-icon>
+        Save
+      </button>
+      <button ion-button color="danger" *ngIf="mode == 'edit'" (click)="delete()">
+        <ion-icon name="trash" class="button-icon"></ion-icon>
+        Delete
+      </button>
+      <button ion-button color="light" *ngIf="currentDevice != null" (click)="setUUID()">
+        <ion-icon name="phone-portrait" class="button-icon"></ion-icon>
+        Set my UUID
+      </button>
+    </div>
+  </div>
+</ion-content>
