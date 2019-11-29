@@ -1,13 +1,3 @@
 Manifest-Version: 1.0
 Main-Class: myhomeassistant.server.Main
-Class-Path: jetty-server-9.4.4.v20170414.jar jetty-servlet-9.4.4.v201704
- 14.jar websocket-server-9.4.4.v20170414.jar websocket-servlet-9.4.4.v20
- 170414.jar websocket-client-9.4.4.v20170414.jar spark-core-2.6.0.jar ja
- vax.servlet-api-3.1.0.jar jetty-webapp-9.4.4.v20170414.jar gson-2.8.5.j
- ar jetty-xml-9.4.4.v20170414.jar commons-exec-1.3.jar slf4j-simple-1.7.
- 21.jar jetty-client-9.4.4.v20170414.jar websocket-api-9.4.4.v20170414.j
- ar jetty-io-9.4.4.v20170414.jar slf4j-api-1.7.13.jar commons-io-2.6.jar
-  jetty-util-9.4.4.v20170414.jar opennlp-tools-1.8.3.jar jetty-http-9.4.
- 4.v20170414.jar websocket-common-9.4.4.v20170414.jar jetty-security-9.4
- .4.v20170414.jar
 
