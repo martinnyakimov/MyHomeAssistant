@@ -6,6 +6,7 @@ import com.github.myhomeassistant.util.MHAUtils;
 import myhomeassistant.server.db.DatabaseConnection;
 import myhomeassistant.server.rest.Routes;
 import myhomeassistant.server.service.ActionToClassMapper;
+import myhomeassistant.server.service.NLPService;
 import myhomeassistant.server.util.Constants;
 import myhomeassistant.server.util.UserInputObject;
 import org.apache.commons.io.IOUtils;
@@ -74,7 +75,12 @@ public class Main {
         while (true) {
             try {
                 System.out.print("> ");
-                ActionToClassMapper.detectActionAndRedirectToClass(new UserInputObject(null, sc.nextLine()));
+                String input = sc.nextLine();
+                if (input.equals("retrain")) {
+                    NLPService.trainCategorizerModel();
+                } else {
+                    ActionToClassMapper.detectActionAndRedirectToClass(new UserInputObject(null, input));
+                }
             } catch (Exception e) {
                 textToSpeech(Constants.ERROR);
             }

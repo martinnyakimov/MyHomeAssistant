@@ -1,5 +1,6 @@
 package myhomeassistant.server.service;
 
+import myhomeassistant.server.util.MainUtil;
 import opennlp.tools.doccat.*;
 import opennlp.tools.lemmatizer.LemmatizerME;
 import opennlp.tools.lemmatizer.LemmatizerModel;
@@ -18,16 +19,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-class NLPService {
+public class NLPService {
 
     private static String MODELS_DIRECTORY = System.getProperty("user.dir") + "/models";
+    private static String PLUGINS_DIRECTORY = System.getProperty("user.dir") + "/plugins";
 
     static DoccatModel deserializeModel() throws IOException {
         FileInputStream fileInputStream = new FileInputStream(MODELS_DIRECTORY + "/trained-expressions.bin");
         return new DoccatModel(fileInputStream);
     }
 
-    static void trainCategorizerModel() throws IOException {
+    public static void trainCategorizerModel() throws IOException {
+        File expressions = new File(MODELS_DIRECTORY + "/expressions.txt");
+        expressions.delete();
+        // Combine built-in command expressions and custom ones
+        MainUtil.joinFiles(expressions, new File[]{new File(MODELS_DIRECTORY + "/default_expressions.txt"),
+                new File(PLUGINS_DIRECTORY + "/plugin_expressions.txt")});
+
         InputStreamFactory inputStreamFactory = new MarkableFileInputStreamFactory(
                 new File(MODELS_DIRECTORY + "/expressions.txt"));
         ObjectStream<String> lineStream = new PlainTextByLineStream(inputStreamFactory, StandardCharsets.UTF_8);

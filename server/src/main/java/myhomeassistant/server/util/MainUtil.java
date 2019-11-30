@@ -1,8 +1,9 @@
 package myhomeassistant.server.util;
 
 import com.github.myhomeassistant.util.MHAUtils;
+import org.apache.commons.io.IOUtils;
 
-import java.io.IOException;
+import java.io.*;
 
 public class MainUtil {
     private static String FORMAT_RESET = "\033[0m";
@@ -35,5 +36,31 @@ public class MainUtil {
         String BOLD = "\033[0;1m";
 
         return BOLD + string + FORMAT_RESET;
+    }
+
+    public static void joinFiles(File destination, File[] sources) throws IOException {
+        OutputStream output = null;
+        try {
+            output = createAppendableStream(destination);
+            for (File source : sources) {
+                appendFile(output, source);
+            }
+        } finally {
+            IOUtils.closeQuietly(output);
+        }
+    }
+
+    private static BufferedOutputStream createAppendableStream(File destination) throws FileNotFoundException {
+        return new BufferedOutputStream(new FileOutputStream(destination, true));
+    }
+
+    private static void appendFile(OutputStream output, File source) throws IOException {
+        InputStream input = null;
+        try {
+            input = new BufferedInputStream(new FileInputStream(source));
+            IOUtils.copy(input, output);
+        } finally {
+            IOUtils.closeQuietly(input);
+        }
     }
 }
