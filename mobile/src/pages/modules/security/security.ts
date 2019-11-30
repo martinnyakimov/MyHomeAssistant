@@ -9,7 +9,7 @@ import {formatDate} from "../../../utils/functions.util";
 export class SecurityPage {
   log = [];
 
-  constructor(private apiProvider: ApiProvider) {
+  constructor(public apiProvider: ApiProvider) {
   }
 
   async ngOnInit() {

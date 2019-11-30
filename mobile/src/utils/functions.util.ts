@@ -1,10 +1,3 @@
-export function getFirstElementFromObject(object: Object) {
-  if (object == null) return null; // If object is null, then don't check for keys length
-  if (Object.keys(object).length === 0) return null;
-
-  return object[Object.keys(object)[0]];
-}
-
 export function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }

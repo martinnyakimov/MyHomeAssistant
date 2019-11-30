@@ -11,10 +11,10 @@ import {SpeechRecognition} from '@ionic-native/speech-recognition';
 import {Device} from '@ionic-native/device';
 import {ProgressBarModule} from "angular-progress-bar"
 import {Network} from "@ionic-native/network";
-import {UIHelper} from "../utils/uihelper.util";
+import {UIUtil} from "../utils/ui.util";
+import {DeviceUtil} from "../utils/device.util";
 
 import {ApiProvider} from "../providers/api";
-
 import {HomePage} from "../pages/home/home";
 import {UsersPage, UserDetailsPage} from "../pages/users/users";
 import {ModulesPage} from "../pages/modules/modules";
@@ -68,7 +68,8 @@ let components = [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Device,
     Network,
-    UIHelper,
+    UIUtil,
+    DeviceUtil,
     ApiProvider,
   ]
 })

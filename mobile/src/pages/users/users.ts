@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, NavParams, Navbar, ModalController, ViewController, Events} from 'ionic-angular';
 import {ApiProvider} from "../../providers/api";
-import {UIHelper} from "../../utils/uihelper.util";
-import {Device} from "@ionic-native/device";
+import {UIUtil} from "../../utils/ui.util";
+import {DeviceUtil} from "../../utils/device.util";
 
 @Component({
   selector: 'page-users',
@@ -13,7 +13,7 @@ export class UsersPage {
   static users = [];
 
   constructor(public modalCtrl: ModalController, public navParams: NavParams,
-              private apiProvider: ApiProvider, public events: Events) {
+              public apiProvider: ApiProvider, public events: Events) {
     events.subscribe("usersRefresh", (users) => {
       UsersPage.users = users;
     });
@@ -54,9 +54,9 @@ export class UserDetailsPage {
   isDisabled: boolean = false;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public navParams: NavParams,
-              private apiProvider: ApiProvider, private uiHelper: UIHelper, public events: Events, private device: Device) {
+              public apiProvider: ApiProvider, public uiUtil: UIUtil, public deviceUtil: DeviceUtil, public events: Events) {
     this.mode = navParams.get('mode') == null ? 'index' : navParams.get('mode');
-    this.currentDevice = this.device.uuid;
+    this.currentDevice = this.deviceUtil.getUUID();
 
     let selectedUser = navParams.get('user');
     if (selectedUser != null) {
@@ -70,20 +70,20 @@ export class UserDetailsPage {
   async save(mode: string) {
     let userObject = {name: this.name, email: this.email, uuid: this.uuid};
 
-    if (this.uiHelper.checkForEmptyField(userObject, ['name'])) {
+    if (this.uiUtil.checkForEmptyField(userObject, ['name'])) {
       this.isDisabled = true;
 
       if (mode == "create") {
         await this.apiProvider.createUser(userObject)
           .then(response => {
-            this.uiHelper.successToast(response, "User")
+            this.uiUtil.successToast(response, "User")
           }).catch((error: any) => {
           });
       }
       if (mode == "edit") {
         await this.apiProvider.updateUser(this.id, userObject)
           .then(response => {
-            this.uiHelper.successToast(response, "User")
+            this.uiUtil.successToast(response, "User")
           }).catch((error: any) => {
           });
       }

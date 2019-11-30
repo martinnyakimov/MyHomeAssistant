@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ApiProvider} from "../../providers/api";
-import {UIHelper} from "../../utils/uihelper.util";
+import {UIUtil} from "../../utils/ui.util";
 import {Constants} from "../../utils/constants";
 import {isEmpty, trim} from "../../utils/functions.util";
 
@@ -15,7 +15,7 @@ export class AboutPage {
   serverIp: string;
   isConnected: boolean;
 
-  constructor(private apiProvider: ApiProvider, private uiHelper: UIHelper) {
+  constructor(public apiProvider: ApiProvider, public uiUtil: UIUtil) {
     this.serverIp = localStorage.getItem("SERVER_IP");
     this.isConnected = !isEmpty(this.serverIp);
   }
@@ -35,6 +35,6 @@ export class AboutPage {
     } else {
       localStorage.setItem("SERVER_IP", this.serverIp);
     }
-    this.uiHelper.successToast(Constants.SUCCESS, "IP address");
+    this.uiUtil.successToast(Constants.SUCCESS, "IP address");
   }
 }

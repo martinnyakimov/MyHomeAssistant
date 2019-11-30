@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ApiProvider} from "../../../providers/api";
-import {UIHelper} from "../../../utils/uihelper.util";
+import {UIUtil} from "../../../utils/ui.util";
 
 @Component({
   selector: 'page-weather',
@@ -10,7 +10,7 @@ export class WeatherPage {
   city: string;
   units: string;
 
-  constructor(private apiProvider: ApiProvider, private uiHelper: UIHelper) {
+  constructor(public apiProvider: ApiProvider, public uiUtil: UIUtil) {
   }
 
   async ngOnInit() {
@@ -24,7 +24,7 @@ export class WeatherPage {
   async save() {
     await this.apiProvider.saveWeatherSettings({city: this.city, units: this.units})
       .then(response => {
-        this.uiHelper.successToast(response, "Settings")
+        this.uiUtil.successToast(response, "Settings")
       }).catch((error: any) => {
       });
   }

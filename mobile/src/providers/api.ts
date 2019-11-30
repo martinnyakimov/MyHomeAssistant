@@ -1,12 +1,12 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Constants} from "../utils/constants";
-import {UIHelper} from "../utils/uihelper.util";
+import {UIUtil} from "../utils/ui.util";
 
 @Injectable()
 export class ApiProvider {
 
-  constructor(public http: HttpClient, private uiHelper: UIHelper) {
+  constructor(public http: HttpClient, public uiUtil: UIUtil) {
   }
 
   public async getServerVersion() {
@@ -98,7 +98,7 @@ export class ApiProvider {
   private async performGetRequest(route: String) {
     return await this.http.get(Constants.API_URL + route).toPromise()
       .catch((error: any) => {
-        this.uiHelper.errorToast("Error! Please check your internet connection or server's IP address.");
+        this.uiUtil.errorToast("Error! Check the connection with your local server.");
         return null;
       });
   }
@@ -107,7 +107,7 @@ export class ApiProvider {
     return await this.http.post(Constants.API_URL + route, JSON.stringify(body),
       {headers: {"Content-Type": "application/json"}}).toPromise()
       .catch((error: any) => {
-        this.uiHelper.errorToast("Error! If you can't solve the problem, contact us.");
+        this.uiUtil.errorToast("Error! If you can't solve the problem, contact us.");
         return null;
       });
   }

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Events, ModalController, NavParams, ViewController} from 'ionic-angular';
 import {ApiProvider} from "../../../providers/api";
-import {UIHelper} from "../../../utils/uihelper.util";
+import {UIUtil} from "../../../utils/ui.util";
 
 @Component({
   selector: 'page-music',
@@ -11,7 +11,7 @@ export class MusicPage {
   static songs = [];
   static isThereActiveSong = 0;
 
-  constructor(private apiProvider: ApiProvider, public modalCtrl: ModalController, public events: Events) {
+  constructor(public apiProvider: ApiProvider, public modalCtrl: ModalController, public events: Events) {
     events.subscribe("musicRefresh", (songs, isThereActiveSong) => {
       MusicPage.songs = songs;
       MusicPage.isThereActiveSong = isThereActiveSong;
@@ -74,8 +74,8 @@ export class SongDetailsPage {
 
   isDisabled: boolean = false;
 
-  constructor(public viewCtrl: ViewController, public navParams: NavParams, private uiHelper: UIHelper,
-              private apiProvider: ApiProvider, private events: Events) {
+  constructor(public viewCtrl: ViewController, public navParams: NavParams, public uiUtil: UIUtil,
+              public apiProvider: ApiProvider, public events: Events) {
     this.mode = navParams.get('mode') == null ? 'show' : navParams.get('mode');
   }
 
@@ -91,12 +91,12 @@ export class SongDetailsPage {
   async save() {
     let songObject = {title: this.title, url: this.url};
 
-    if (this.uiHelper.checkForEmptyField(songObject, ['url'])) {
+    if (this.uiUtil.checkForEmptyField(songObject, ['url'])) {
       this.isDisabled = true;
 
       await this.apiProvider.addSong(songObject)
         .then(response => {
-          this.uiHelper.successToast(response, "Song")
+          this.uiUtil.successToast(response, "Song")
         }).catch((error: any) => {
         });
       this.dismiss();

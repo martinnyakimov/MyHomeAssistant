@@ -4,8 +4,8 @@ import {Constants} from "./constants";
 import {capitalizeFirstLetter} from "./functions.util";
 
 @Injectable()
-export class UIHelper {
-  constructor(private toastCtrl: ToastController) {
+export class UIUtil {
+  constructor(public toastCtrl: ToastController) {
   }
 
   showToast({message, position = "bottom", duration = 3000}: { message: string, position?: string, duration?: number }) {

@@ -1,14 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {Nav} from 'ionic-angular';
 import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
-import {Network} from "@ionic-native/network";
-import {Device} from "@ionic-native/device";
 
 import {HomePage} from '../pages/home/home';
 import {UsersPage} from '../pages/users/users';
 import {ModulesPage} from "../pages/modules/modules";
 import {AboutPage} from "../pages/about/about";
+import {DeviceUtil} from "../utils/device.util";
 
 @Component({
   templateUrl: 'app.html'
@@ -20,8 +19,7 @@ export class MyApp {
   rootPage: any = HomePage;
   pages: Array<{ title: string, component: any, icon: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
-              private network: Network, private device: Device) {
+  constructor(public deviceUtil: DeviceUtil, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     this.pages = [
@@ -34,13 +32,13 @@ export class MyApp {
   }
 
   ngOnInit() {
-    this.platform.ready().then(() => {
-      this.uuid = this.device.uuid;
+    this.deviceUtil.whenPlatformReady().then(() => {
+      this.uuid = this.deviceUtil.getUUID();
     });
   }
 
   initializeApp() {
-    this.platform.ready().then(() => {
+    this.deviceUtil.whenPlatformReady().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

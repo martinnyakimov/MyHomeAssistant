@@ -1,9 +1,9 @@
 import {Component} from '@angular/core';
-import {NavController, Platform} from 'ionic-angular';
+import {NavController} from 'ionic-angular';
 import {SpeechRecognition} from '@ionic-native/speech-recognition';
-import {Device} from "@ionic-native/device";
 import {Constants} from "../../utils/constants";
-import {UIHelper} from "../../utils/uihelper.util";
+import {UIUtil} from "../../utils/ui.util";
+import {DeviceUtil} from "../../utils/device.util";
 import {ApiProvider} from "../../providers/api";
 import {isEmpty} from "../../utils/functions.util";
 import {AboutPage} from "../about/about";
@@ -19,8 +19,8 @@ export class HomePage {
   serverVersion: number;
   isConnected: boolean;
 
-  constructor(private speechRecognition: SpeechRecognition, private plt: Platform, private device: Device,
-              private uiHelper: UIHelper, public navCtrl: NavController, public apiProvider: ApiProvider) {
+  constructor(public speechRecognition: SpeechRecognition, public uiUtil: UIUtil, public deviceUtil: DeviceUtil,
+              public navCtrl: NavController, public apiProvider: ApiProvider) {
   }
 
   async ngOnInit() {
@@ -43,21 +43,15 @@ export class HomePage {
   }
 
   isCordova() {
-    return this.plt.is('cordova');
+    return this.deviceUtil.isCordova();
   }
 
   isIos() {
-    return this.plt.is('ios');
-  }
-
-  stopListening() {
-    this.speechRecognition.stopListening().then(() => {
-      this.isRecording = false;
-    });
+    return this.deviceUtil.isIos();
   }
 
   async startListening() {
-    let userId = await this.apiProvider.getUserByUUID(this.device.uuid)['id'];
+    let userId = await this.apiProvider.getUserByUUID(this.deviceUtil.getUUID())['id'];
     this.speechRecognition.hasPermission().then((hasPermission: boolean) => {
       if (hasPermission) {
         this.speechRecognition.startListening({language: 'en-US'}).subscribe(matches => {
@@ -72,8 +66,14 @@ export class HomePage {
 
         this.isRecording = true;
       } else {
-        this.uiHelper.showToast({message: "The application does not have voice recording permission!"})
+        this.uiUtil.showToast({message: "The application does not have voice recording permission!"})
       }
+    });
+  }
+
+  stopListening() {
+    this.speechRecognition.stopListening().then(() => {
+      this.isRecording = false;
     });
   }
 
