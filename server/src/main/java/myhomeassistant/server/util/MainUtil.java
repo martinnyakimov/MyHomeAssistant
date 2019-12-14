@@ -63,4 +63,8 @@ public class MainUtil {
             IOUtils.closeQuietly(input);
         }
     }
+
+    public static String sendEmailNotification(String userEmail, String dateTime) {
+        return "wget --post-data 'email=" + userEmail + "&dateTime=" + dateTime + "' " + Constants.API_URL + "sendEmailNotification -O/dev/null";
+    }
 }

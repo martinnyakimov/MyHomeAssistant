@@ -59,10 +59,7 @@ public class SecurityLogService {
                 // Send email notification to all users with emails
                 usersWithEmails.forEach(user -> {
                     try {
-                        // TODO: update the URL when deploy the web app
-                        new ProcessBuilder("bash", "-c",
-                                "wget --post-data 'email="+user.getEmail()+"&dateTime=" + dateFormat.format(now) + "' http://127.0.0.1:8000/api/sendEmailNotification")
-                                .start();
+                        new ProcessBuilder("bash", "-c", MainUtil.sendEmailNotification(user.getEmail(), dateFormat.format(now))).start();
                     } catch (IOException e) {
                     }
                 });

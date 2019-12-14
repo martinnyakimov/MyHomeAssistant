@@ -29,7 +29,7 @@ public class Main {
     public static void main(String[] args) throws SQLException, IOException {
         // Disable info messages, show only warnings and errors
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-        root.setLevel(Level.WARN);
+        root.setLevel(Level.ERROR);
 
         if (checkRequirements()) {
             // Init web server
@@ -44,7 +44,7 @@ public class Main {
             databaseConnection.initDatabase();
 
             // Get IP
-            ProcessBuilder pb = new ProcessBuilder("bash", "-c", "ifconfig | grep -Eo 'inet (addr:)?([0-9]*\\.){3}[0-9]*' | grep -Eo '([0-9]*\\.){3}[0-9]*' | grep -v '127.0.0.1'");
+            ProcessBuilder pb = new ProcessBuilder("bash", "-c", Constants.COMMAND_GET_IP);
             final String IP = IOUtils.toString(pb.start().getInputStream(), StandardCharsets.UTF_8);
 
             System.out.println("Welcome to " + printBoldString("MyHomeAssistant " + VERSION) + "!");
