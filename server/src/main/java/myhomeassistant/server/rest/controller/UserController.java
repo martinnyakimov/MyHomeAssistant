@@ -3,8 +3,7 @@ package myhomeassistant.server.rest.controller;
 import com.google.gson.Gson;
 import myhomeassistant.server.db.model.User;
 import myhomeassistant.server.rest.RequestParser;
-import myhomeassistant.server.rest.response.BaseResponse;
-import myhomeassistant.server.rest.response.StatusResponse;
+import myhomeassistant.server.rest.response.ErrorResponse;
 import myhomeassistant.server.rest.response.SuccessResponse;
 import myhomeassistant.server.rest.service.UserService;
 import spark.Request;
@@ -30,19 +29,24 @@ public class UserController {
         return new Gson().toJson(user);
     }
 
-    // TODO: show error (e.g. this UUID is already in use)
     public static String createUser(Request request, Response response) throws SQLException {
         RequestParser parser = new RequestParser(request);
 
-        UserService.createUser(parser.get("name"), parser.get("email"), parser.get("uuid"));
-        return new SuccessResponse().toString();
+        if (UserService.getUserByUUID(parser.get("uuid")) == null) {
+            UserService.createUser(parser.get("name"), parser.get("email"), parser.get("uuid"));
+            return new SuccessResponse().toString();
+        }
+        return new ErrorResponse("User with this UUID already exists.").toString();
     }
 
     public static String updateUser(Request request, Response response) throws SQLException {
         RequestParser parser = new RequestParser(request);
 
-        UserService.updateUser(Integer.valueOf(request.params("id")), parser.get("name"), parser.get("email"), parser.get("uuid"));
-        return new SuccessResponse().toString();
+        if (UserService.getUserByUUID(parser.get("uuid")) == null) {
+            UserService.updateUser(Integer.valueOf(request.params("id")), parser.get("name"), parser.get("email"), parser.get("uuid"));
+            return new SuccessResponse().toString();
+        }
+        return new ErrorResponse("User with this UUID already exists.").toString();
     }
 
     public static String deleteUser(Request request, Response response) throws SQLException {

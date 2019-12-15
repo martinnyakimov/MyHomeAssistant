@@ -22,7 +22,7 @@ public class WeatherAction extends Action {
             WeatherSettings settings = WeatherService.getSettings();
 
             int temp = getTemperatureInCity(settings).intValue(); // TODO: get another data
-            MainUtil.textToSpeech(String.format("The temperature in %s is %d degrees", settings.getCity(), temp)); // TODO: If 1 -> degree
+            MainUtil.textToSpeech(String.format("The temperature in %s is %d %s", settings.getCity(), temp, temp == 1 ? "degree" : "degrees"));
         } catch (IOException | SQLException e) {
             MainUtil.textToSpeech(Constants.ERROR);
         }

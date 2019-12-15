@@ -3,6 +3,7 @@ import {NavController, NavParams, Navbar, ModalController, ViewController, Event
 import {ApiProvider} from "../../providers/api";
 import {UIUtil} from "../../utils/ui.util";
 import {DeviceUtil} from "../../utils/device.util";
+import {Constants} from "../../utils/constants";
 
 @Component({
   selector: 'page-users',
@@ -76,17 +77,26 @@ export class UserDetailsPage {
       if (mode == "create") {
         await this.apiProvider.createUser(userObject)
           .then(response => {
-            this.uiUtil.successToast(response, "User")
+            this.createOrUpdate(response);
           }).catch((error: any) => {
           });
       }
       if (mode == "edit") {
         await this.apiProvider.updateUser(this.id, userObject)
           .then(response => {
-            this.uiUtil.successToast(response, "User")
+            this.createOrUpdate(response);
           }).catch((error: any) => {
           });
       }
+    }
+  }
+
+  createOrUpdate(response) {
+    if (response["status"] == Constants.ERROR) {
+      this.uiUtil.errorToast(response["data"]);
+      this.isDisabled = false;
+    } else {
+      this.uiUtil.successToast(response, "User");
       this.dismiss();
     }
   }

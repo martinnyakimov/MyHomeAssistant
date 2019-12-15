@@ -2,7 +2,6 @@ package myhomeassistant.server.rest.service;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
-import com.j256.ormlite.stmt.PreparedQuery;
 import myhomeassistant.server.db.DatabaseConnection;
 import myhomeassistant.server.db.model.User;
 import myhomeassistant.server.util.Constants;
@@ -39,6 +38,9 @@ public class UserService {
     }
 
     public static User getUserByUUID(String uuid) {
+        if (uuid == null) {
+            return null;
+        }
         try {
             return userDao.queryForEq("uuid", uuid).get(0);
         } catch (Exception e) {
