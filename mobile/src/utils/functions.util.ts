@@ -6,6 +6,10 @@ export function isEmpty(string) {
   return string == null || string == '';
 }
 
+export function setZeroLengthIfEmpty(object) {
+  return isEmpty(object) ? [] : object;
+}
+
 export function trim(string) {
   return string.replace(/^\s+|\s+$/gm, '');
 }

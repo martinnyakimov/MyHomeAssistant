@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Constants} from "../utils/constants";
 import {UIUtil} from "../utils/ui.util";
+import {setZeroLengthIfEmpty} from "../utils/functions.util";
 
 @Injectable()
 export class ApiProvider {
@@ -15,7 +16,7 @@ export class ApiProvider {
 
   /*========================= USERS =========================*/
   public async getAllUsers() {
-    return await this.performGetRequest("users");
+    return setZeroLengthIfEmpty(await this.performGetRequest("users"));
   }
 
   public async getUserById(id: number) {
@@ -45,7 +46,7 @@ export class ApiProvider {
 
   /*========================= MUSIC =========================*/
   public async getAllSongs() {
-    return await this.performGetRequest("modules/music/songs");
+    return setZeroLengthIfEmpty(await this.performGetRequest("modules/music/songs"));
   }
 
   public async getSongById(id: number) {
@@ -66,10 +67,8 @@ export class ApiProvider {
 
   public async checkForActiveSong() {
     let isThereActiveSong = await this.performGetRequest("modules/music/activeSong");
-    if (isThereActiveSong == null) {
-      return 0;
-    }
-    return isThereActiveSong['data'];
+
+    return isThereActiveSong == null ? 0 : isThereActiveSong['data'];
   }
 
   public async stopMusic() {
