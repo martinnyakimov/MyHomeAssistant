@@ -32,9 +32,13 @@ export class AboutPage {
   save() {
     if (trim(this.serverIp) == '') {
       localStorage.removeItem("SERVER_IP");
+      this.uiUtil.showToast({
+        message: "You cleared the IP address field.",
+        duration: 5000
+      });
     } else {
       localStorage.setItem("SERVER_IP", this.serverIp);
+      this.uiUtil.savedItemToast({status: Constants.SUCCESS}, "IP address");
     }
-    this.uiUtil.successToast(Constants.SUCCESS, "IP address");
   }
 }

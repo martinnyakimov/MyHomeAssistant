@@ -97,7 +97,7 @@ export class ApiProvider {
   private async performGetRequest(route: String) {
     return await this.http.get(Constants.API_URL + route).toPromise()
       .catch((error: any) => {
-        this.uiUtil.errorToast("Error! Check the connection with your local server.");
+        this.uiUtil.errorToast("Check the connection with your local server.");
         return null;
       });
   }
@@ -106,7 +106,7 @@ export class ApiProvider {
     return await this.http.post(Constants.API_URL + route, JSON.stringify(body),
       {headers: {"Content-Type": "application/json"}}).toPromise()
       .catch((error: any) => {
-        this.uiUtil.errorToast("Error! If you can't solve the problem, contact us.");
+        this.uiUtil.errorToast("If you can't solve the problem, contact us.");
         return null;
       });
   }

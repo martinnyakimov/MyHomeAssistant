@@ -16,7 +16,7 @@ export class UIUtil {
     }).present();
   }
 
-  successToast(response, updatedObject: string) {
+  savedItemToast(response, updatedObject: string) {
     if (response["status"] == Constants.SUCCESS) {
       this.showToast({message: updatedObject + " was saved successfully."})
     }
@@ -24,7 +24,7 @@ export class UIUtil {
 
   errorToast(message: string) {
     this.showToast({
-      message: message,
+      message: "Error! " + message,
       duration: 5000
     });
   }

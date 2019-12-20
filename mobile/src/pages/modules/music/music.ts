@@ -96,7 +96,7 @@ export class SongDetailsPage {
 
       await this.apiProvider.addSong(songObject)
         .then(response => {
-          this.uiUtil.successToast(response, "Song")
+          this.uiUtil.savedItemToast(response, "Song")
         }).catch((error: any) => {
         });
       this.dismiss();

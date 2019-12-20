@@ -96,7 +96,7 @@ export class UserDetailsPage {
       this.uiUtil.errorToast(response["data"]);
       this.isDisabled = false;
     } else {
-      this.uiUtil.successToast(response, "User");
+      this.uiUtil.savedItemToast(response, "User");
       this.dismiss();
     }
   }

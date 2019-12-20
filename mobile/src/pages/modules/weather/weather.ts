@@ -24,7 +24,7 @@ export class WeatherPage {
   async save() {
     await this.apiProvider.saveWeatherSettings({city: this.city, units: this.units})
       .then(response => {
-        this.uiUtil.successToast(response, "Settings")
+        this.uiUtil.savedItemToast(response, "Settings")
       }).catch((error: any) => {
       });
   }
