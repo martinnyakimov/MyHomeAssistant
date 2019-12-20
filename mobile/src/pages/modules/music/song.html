@@ -15,7 +15,15 @@
     <div *ngIf="mode == 'show'">
       <h4 margin-top>{{ title }}</h4>
 
-      <button ion-button color="danger" (click)="delete(id)">
+      <div>
+        <strong>Link:</strong>
+        <a class="color-primary" href="#" (click)="openSongLink()">
+          {{ url }}
+        </a>
+        <hr/>
+      </div>
+
+      <button ion-button color="danger" margin-top (click)="delete(id)">
         <ion-icon name="trash" class="button-icon"></ion-icon>
         Delete
       </button>

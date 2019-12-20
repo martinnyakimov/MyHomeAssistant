@@ -108,6 +108,11 @@ export class SongDetailsPage {
     await this.dismiss();
   }
 
+  openSongLink() {
+    window.open(this.url, '_system', 'location=yes');
+    return false;
+  }
+
   async dismiss() {
     await this.viewCtrl.dismiss();
     await this.events.publish("musicRefresh",
