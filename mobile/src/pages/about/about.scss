@@ -9,3 +9,7 @@ page-about strong {
 #ip-change {
   padding-left: 0 !important;
 }
+
+.progress-outer {
+  background-color: lighten($background-color, 5) !important;
+}

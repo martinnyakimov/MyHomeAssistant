@@ -53,3 +53,15 @@ ion-title {
   background-color: #c83131;
   color: #fff;
 }
+
+.item-md {
+  background-color: $background-color;
+}
+
+.list-md .item-block .item-inner {
+  border-bottom: 1.5px solid darken($background-color, 3);
+}
+
+.activated {
+  background-color: transparent !important;
+}

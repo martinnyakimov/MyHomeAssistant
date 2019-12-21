@@ -8,13 +8,14 @@ $colors: (
   secondary: #35c315,
   danger: #c83131,
   light: #f4f4f4,
-  dark: #222
+  dark: #1f1f1f
 );
 
 $primary-color: map_get($colors, primary);
-$toolbar-background: $primary-color;
+$background-color: map_get($colors, dark);
+$toolbar-background: #282828;
 
-@import "ionic.theme.default";
+@import "ionic.theme.dark";
 @import "ionic.ionicons";
 @import "roboto";
 @import "noto-sans";
