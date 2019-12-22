@@ -35,7 +35,6 @@ public class Main {
             // Init web server
             webSocket("/socket", WebSocketHandler.class);
             staticFiles.location("/public");
-            staticFiles.expireTime(600);
             port(8080);
             Routes.init();
 

@@ -33,21 +33,13 @@ export class HomePage {
     }
 
     // Ask for permission
-    if (this.isCordova()) {
+    if (this.deviceUtil.isCordova()) {
       this.speechRecognition.hasPermission().then((hasPermission: boolean) => {
         if (!hasPermission) {
           this.speechRecognition.requestPermission();
         }
       });
     }
-  }
-
-  isCordova() {
-    return this.deviceUtil.isCordova();
-  }
-
-  isIos() {
-    return this.deviceUtil.isIos();
   }
 
   async startListening() {

@@ -38,7 +38,7 @@ public class Routes {
                     get("activeSong", MusicController::activeSong);
                 });
                 path("storage/", () -> {
-                    post("upload", "multipart/form-data", StorageController::upload);
+                    post("upload", StorageController::upload);
                 });
                 path("security/", () -> {
                     get("log", SecurityLogController::getLog);
