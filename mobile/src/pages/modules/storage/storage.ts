@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
-import {Constants} from "../../../utils/constants";
-import {DomSanitizer} from '@angular/platform-browser';
+import {ApiProvider} from "../../../providers/api";
 
 @Component({
   selector: 'page-storage',
@@ -8,9 +7,17 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class StoragePage {
 
-  ip: string;
+  constructor(public apiProvider: ApiProvider) {
+  }
 
-  constructor(public sanitizer: DomSanitizer) {
-    this.ip = Constants.IP;
+  async fileUpload(event) {
+    let file = event.target.files[0];
+    let reader = new FileReader();
+    let _this = this;
+
+    reader.readAsDataURL(file);
+    reader.onload = async function () {
+      await _this.apiProvider.uploadFile({name: file['name'], content: reader.result});
+    };
   }
 }

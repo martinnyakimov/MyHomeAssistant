@@ -8,7 +8,5 @@
 </ion-header>
 
 <ion-content padding>
-  <iframe [src]='sanitizer.bypassSecurityTrustResourceUrl("http://"+ip+":8080/upload.html")'
-          style="width: 100%; border: 0;">
-  </iframe>
+  <input type="file" (change)="fileUpload($event)"/>
 </ion-content>

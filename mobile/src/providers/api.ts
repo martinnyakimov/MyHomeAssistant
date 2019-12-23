@@ -93,6 +93,11 @@ export class ApiProvider {
     return await this.performPostRequest("modules/security/delete/" + id, {});
   }
 
+  /*========================= SECURITY =========================*/
+  public async uploadFile(body: Object) {
+    return await this.performPostRequest("modules/storage/upload", body);
+  }
+
   /*========================= REQUESTS =========================*/
   private async performGetRequest(route: String) {
     return await this.http.get(Constants.API_URL + route).toPromise()

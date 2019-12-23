@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {MusicPage} from "./music/music";
 import {WeatherPage} from "./weather/weather";
 import {SecurityPage} from "./security/security";
+import {StoragePage} from "./storage/storage";
 
 @Component({
   selector: 'page-modules',
@@ -16,7 +17,7 @@ export class ModulesPage {
       {title: 'Music', component: MusicPage, icon: 'musical-note'},
       {title: 'Weather', component: WeatherPage, icon: 'sunny'},
       {title: 'Security logs', component: SecurityPage, icon: 'videocam'},
-      // TODO: {title: 'Home file storage', component: StoragePage, icon: 'folder'},
+      {title: 'Home file storage', component: StoragePage, icon: 'folder'},
     );
   }
 

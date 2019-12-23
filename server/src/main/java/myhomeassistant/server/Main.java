@@ -53,7 +53,6 @@ public class Main {
             final ExecutorService pool = Executors.newFixedThreadPool(2);
             pool.execute(Main::console);
             pool.execute(Main::securityLog);
-
         } else {
             printErrorMessage("Error!");
             printErrorMessage("You have not installed the necessary software:");
@@ -61,7 +60,6 @@ public class Main {
             if (MHAUtils.TTSSoftwarePath().equals(""))
                 printErrorMessage("Pico Text-to-Speech => sudo apt-get install libttspico-utils");
         }
-
     }
 
     private static boolean checkRequirements() {
