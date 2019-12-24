@@ -8,5 +8,29 @@
 </ion-header>
 
 <ion-content padding>
-  <input type="file" (change)="fileUpload($event)"/>
+  <div text-center>
+    <ion-card class="info-card" margin-top *ngIf="!isFileSelected">
+      <ion-card-content>
+        It is not recommended to upload large files!
+      </ion-card-content>
+    </ion-card>
+    <p *ngIf="isFileSelected">Selected file: <i>{{ file['name'] }}</i></p>
+
+    <input type="file" (change)="getFileName($event)" id="file-input"/>
+    <label *ngIf="!isFileSelected" for="file-input" ion-button>
+      <ion-icon name="document" class="button-icon"></ion-icon>
+      Select file
+    </label>
+
+    <div *ngIf="isFileSelected">
+      <button ion-button (click)="upload()" [disabled]="isUploading">
+        <ion-icon name="cloud-upload" class="button-icon"></ion-icon>
+        Upload
+      </button>
+      <button *ngIf="!isUploading" ion-button color="light" (click)="selectNewFile()">
+        Select new file
+      </button>
+    </div>
+    <p *ngIf="isUploading"><em>Uploading...</em></p>
+  </div>
 </ion-content>
