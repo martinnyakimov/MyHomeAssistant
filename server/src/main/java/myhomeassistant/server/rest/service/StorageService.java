@@ -13,15 +13,18 @@ import java.util.Map;
 
 public class StorageService {
 
-    public static Map<String, Integer> getAllFiles() throws IOException {
+    public static Map<String, Integer> getAllFiles() {
         Map<String, Integer> files = new Hashtable<>();
-        Files.walk(Paths.get("storage"))
-                .filter(Files::isRegularFile)
-                .forEach(file ->
-                        // Key: filename; Value: size in KB
-                        files.put(file.toString().replace("storage/", ""),
-                                (int) file.toFile().length() / 1000)
-                );
+        try {
+            Files.walk(Paths.get("storage"))
+                    .filter(Files::isRegularFile)
+                    .forEach(file ->
+                            // Key: filename; Value: size in KB
+                            files.put(file.toString().replace("storage/", ""),
+                                    (int) file.toFile().length() / 1000)
+                    );
+        } catch (IOException e) {
+        }
         return files;
     }
 

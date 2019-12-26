@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class StorageController {
 
-    public static String getAllFiles(Request request, Response response) throws IOException {
+    public static String getAllFiles(Request request, Response response) {
         return new Gson().toJson(StorageService.getAllFiles());
     }
 
