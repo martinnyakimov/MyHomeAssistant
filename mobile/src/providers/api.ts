@@ -94,6 +94,10 @@ export class ApiProvider {
   }
 
   /*========================= SECURITY =========================*/
+  public async getAllFiles() {
+    return setZeroLengthIfEmpty(await this.performGetRequest("modules/storage/getFiles"));
+  }
+
   public async uploadFile(body: Object) {
     return await this.performPostRequest("modules/storage/upload", body);
   }

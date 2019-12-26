@@ -38,6 +38,7 @@ public class Routes {
                     get("activeSong", MusicController::activeSong);
                 });
                 path("storage/", () -> {
+                    get("getFiles", StorageController::getAllFiles);
                     post("upload", StorageController::upload);
                 });
                 path("security/", () -> {

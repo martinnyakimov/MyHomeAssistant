@@ -8,8 +8,22 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class StorageService {
+
+    public static Map<String, Integer> getAllFiles() throws IOException {
+        Map<String, Integer> files = new Hashtable<>();
+        Files.walk(Paths.get("storage"))
+                .filter(Files::isRegularFile)
+                .forEach(file ->
+                        // Key: filename; Value: size in KB
+                        files.put(file.toString().replace("storage/", ""),
+                                (int) file.toFile().length() / 1000)
+                );
+        return files;
+    }
 
     public static void uploadFile(RequestParser request) throws IOException {
         final String SEPARATOR = ",";

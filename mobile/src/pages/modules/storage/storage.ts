@@ -9,12 +9,28 @@ import {Constants} from "../../../utils/constants";
 })
 export class StoragePage {
 
+  mode: String = 'index';
+  files = [];
   file: Blob = null;
   fileName: String = null;
   isFileSelected: boolean = this.fileName != null && this.fileName != '';
   isUploading: boolean = false;
 
   constructor(public navCtrl: NavController, public apiProvider: ApiProvider) {
+  }
+
+  async ngOnInit() {
+    let files = await this.apiProvider.getAllFiles();
+    for (let file in files) {
+      this.files.push({'title': file, 'size': this.prepareFileSize(files[file])});
+    }
+  }
+
+  prepareFileSize(kb: number) {
+    if (kb >= 1000) {
+      return Math.floor((kb / 1000) * 10) / 10 + ' MB';
+    }
+    return kb + ' KB'
   }
 
   getFileName(event) {
