@@ -33,6 +33,10 @@ export class StoragePage {
     return kb + ' KB'
   }
 
+  async download(title: String) {
+    window.open(Constants.API_URL + "modules/storage/download/" + title);
+  }
+
   getFileName(event) {
     this.file = event.target.files[0];
     this.fileName = this.file['name'];

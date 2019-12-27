@@ -48,12 +48,12 @@
     <ion-list>
       <ion-item>
         <ion-label><strong>Title</strong></ion-label>
-        <ion-label text-right><strong>Size</strong></ion-label>
+        <ion-label text-right><strong>Download</strong></ion-label>
       </ion-item>
       <div *ngFor="let file of files">
         <ion-item>
-          <ion-label>{{ file['title'] }}</ion-label>
-          <ion-label text-right>{{ file['size'] }}</ion-label>
+          <ion-label>{{ file['title'] }} ({{ file['size'] }})</ion-label>
+          <ion-label text-right><ion-icon name="download" id="download-icon" (click)="download(file['title'])"></ion-icon></ion-label>
         </ion-item>
       </div>
       <div *ngIf="files.length == 0">

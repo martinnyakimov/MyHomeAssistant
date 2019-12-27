@@ -39,6 +39,7 @@ public class Routes {
                 });
                 path("storage/", () -> {
                     get("getFiles", StorageController::getAllFiles);
+                    get("download/:file", StorageController::download);
                     post("upload", StorageController::upload);
                 });
                 path("security/", () -> {

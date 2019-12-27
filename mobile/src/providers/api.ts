@@ -93,7 +93,7 @@ export class ApiProvider {
     return await this.performPostRequest("modules/security/delete/" + id, {});
   }
 
-  /*========================= SECURITY =========================*/
+  /*========================= FILE STORAGE =========================*/
   public async getAllFiles() {
     return setZeroLengthIfEmpty(await this.performGetRequest("modules/storage/getFiles"));
   }

@@ -1,7 +1,9 @@
 package myhomeassistant.server.rest.service;
 
 import myhomeassistant.server.rest.RequestParser;
+import spark.Response;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -26,6 +28,20 @@ public class StorageService {
         } catch (IOException e) {
         }
         return files;
+    }
+
+    public static HttpServletResponse download(Response response, String file) throws IOException {
+        HttpServletResponse raw = response.raw();
+        response.header("Content-Disposition", "attachment; filename=" + file);
+        response.type("application/force-download");
+
+        Path path = Paths.get("storage/" + file);
+        byte[] data = Files.readAllBytes(path);
+
+        raw.getOutputStream().write(data);
+        raw.getOutputStream().flush();
+        raw.getOutputStream().close();
+        return raw;
     }
 
     public static void uploadFile(RequestParser request) throws IOException {
