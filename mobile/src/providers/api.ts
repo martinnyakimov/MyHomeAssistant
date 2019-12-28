@@ -102,6 +102,10 @@ export class ApiProvider {
     return await this.performPostRequest("modules/storage/upload", body);
   }
 
+  public async generateZIP() {
+    return await this.performGetRequest("modules/storage/generateZIP");
+  }
+
   /*========================= REQUESTS =========================*/
   private async performGetRequest(route: String) {
     return await this.http.get(Constants.API_URL + route).toPromise()

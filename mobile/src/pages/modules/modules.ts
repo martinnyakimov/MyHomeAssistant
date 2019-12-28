@@ -17,7 +17,7 @@ export class ModulesPage {
       {title: 'Music', component: MusicPage, icon: 'musical-note'},
       {title: 'Weather', component: WeatherPage, icon: 'sunny'},
       {title: 'Security logs', component: SecurityPage, icon: 'videocam'},
-      {title: 'Home file storage', component: StoragePage, icon: 'folder'},
+      {title: 'File storage', component: StoragePage, icon: 'folder'},
     );
   }
 

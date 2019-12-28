@@ -11,6 +11,7 @@ export class StoragePage {
 
   mode: String = 'index';
   files = [];
+  totalFilesSize: String = null;
   file: Blob = null;
   fileName: String = null;
   isFileSelected: boolean = this.fileName != null && this.fileName != '';
@@ -21,9 +22,18 @@ export class StoragePage {
 
   async ngOnInit() {
     let files = await this.apiProvider.getAllFiles();
+    let totalSize = 0;
     for (let file in files) {
-      this.files.push({'title': file, 'size': this.prepareFileSize(files[file])});
+      let size = files[file];
+      totalSize += size;
+      this.files.push({'title': file, 'size': this.prepareFileSize(size)});
     }
+    this.totalFilesSize = this.prepareFileSize(totalSize);
+  }
+
+  async generateZIP() {
+    await this.apiProvider.generateZIP();
+    this.showIndexMode(); // Refreshing page
   }
 
   prepareFileSize(kb: number) {
@@ -54,13 +64,13 @@ export class StoragePage {
         .then(response => {
           if (response['status'] == Constants.SUCCESS) {
             _this.isUploading = false;
-            _this.selectNewFile();
+            _this.showIndexMode();
           }
         });
     };
   }
 
-  selectNewFile() {
+  showIndexMode() {
     this.navCtrl.setRoot(StoragePage);
   }
 }

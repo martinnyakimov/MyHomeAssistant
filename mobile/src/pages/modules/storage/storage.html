@@ -32,7 +32,7 @@
         <ion-icon name="cloud-upload" class="button-icon"></ion-icon>
         Upload
       </button>
-      <button *ngIf="!isUploading" ion-button color="light" (click)="selectNewFile()">
+      <button *ngIf="!isUploading" ion-button color="light" (click)="showIndexMode()">
         Select new file
       </button>
     </div>
@@ -44,18 +44,29 @@
         <ion-icon name="add" class="button-icon"></ion-icon>
         Add file
       </button>
+      <button ion-button (click)="generateZIP()">
+        <ion-icon name="copy" class="button-icon"></ion-icon>
+        Generate backup
+      </button>
     </div>
     <ion-list>
       <ion-item>
         <ion-label><strong>Title</strong></ion-label>
+        <ion-label text-right><strong>Size</strong></ion-label>
         <ion-label text-right><strong>Download</strong></ion-label>
       </ion-item>
       <div *ngFor="let file of files">
         <ion-item>
-          <ion-label>{{ file['title'] }} ({{ file['size'] }})</ion-label>
-          <ion-label text-right><ion-icon name="download" id="download-icon" (click)="download(file['title'])"></ion-icon></ion-label>
+          <ion-label>{{ file['title'] }}</ion-label>
+          <ion-label text-right>{{ file['size'] }}</ion-label>
+          <ion-label text-right>
+            <ion-icon name="download" id="download-icon" (click)="download(file['title'])"></ion-icon>
+          </ion-label>
         </ion-item>
       </div>
+      <ion-item *ngIf="files.length > 0">
+        <ion-label text-right>Total size: <strong>{{ totalFilesSize }}</strong></ion-label>
+      </ion-item>
       <div *ngIf="files.length == 0">
         <ion-item>
           <ion-label text-center>The list is empty.</ion-label>

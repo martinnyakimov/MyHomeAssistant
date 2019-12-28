@@ -12,17 +12,19 @@ import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class StorageService {
 
-    public static Map<String, Integer> getAllFiles() {
+    public static Map<String, Integer> getAllFiles(Boolean showStorageFolder) {
         Map<String, Integer> files = new Hashtable<>();
         try {
             Files.walk(Paths.get("storage"))
                     .filter(Files::isRegularFile)
                     .forEach(file ->
                             // Key: filename; Value: size in KB
-                            files.put(file.toString().replace("storage/", ""),
+                            files.put(showStorageFolder ? file.toString() : file.toString().replace("storage/", ""),
                                     (int) file.toFile().length() / 1000)
                     );
         } catch (IOException e) {
@@ -55,5 +57,37 @@ public class StorageService {
             Path destinationFile = Paths.get("storage/", request.get("name"));
             Files.write(destinationFile, decodedFile);
         }
+    }
+
+    public static void generateZIP() throws IOException {
+        File zipFile = new File("storage/backup.zip");
+        FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
+        ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
+
+        getAllFiles(true).forEach((title, size) -> {
+            try {
+                if (!title.equals("storage/backup.zip")) {
+                    addToZipFile(title, zipOutputStream);
+                }
+            } catch (IOException e) {
+            }
+        });
+        zipOutputStream.close();
+        fileOutputStream.close();
+    }
+
+    private static void addToZipFile(String fileName, ZipOutputStream zipOutputStream) throws IOException {
+        File file = new File(fileName);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        ZipEntry zipEntry = new ZipEntry(fileName);
+        zipOutputStream.putNextEntry(zipEntry);
+
+        byte[] bytes = new byte[1024];
+        int length;
+        while ((length = fileInputStream.read(bytes)) >= 0) {
+            zipOutputStream.write(bytes, 0, length);
+        }
+        zipOutputStream.closeEntry();
+        fileInputStream.close();
     }
 }
