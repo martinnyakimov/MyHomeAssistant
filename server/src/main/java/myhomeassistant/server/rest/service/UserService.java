@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserService {
-    private static Dao<User, String> userDao;
+    private static Dao<User, Integer> userDao;
 
     static {
         try {
@@ -34,18 +34,26 @@ public class UserService {
     }
 
     public static User getUserById(Integer id) throws SQLException {
-        return userDao.queryForId(String.valueOf(id));
+        return userDao.queryForId(id);
     }
 
-    public static User getUserByUUID(String uuid) {
+    public static User getUserByUUID(String uuid, Integer id) {
         if (uuid == null) {
             return null;
         }
         try {
-            return userDao.queryForEq("uuid", uuid).get(0);
+            User user = userDao.queryForEq("uuid", uuid).get(0);
+            if (!user.getId().equals(id)) {
+                return user;
+            }
         } catch (Exception e) {
             return null;
         }
+        return null;
+    }
+
+    public static User getUserByUUID(String uuid) {
+        return getUserByUUID(uuid, null);
     }
 
     public static void createUser(String name, String email, String UUID) throws SQLException {
@@ -66,6 +74,6 @@ public class UserService {
     }
 
     public static void deleteUser(Integer id) throws SQLException {
-        userDao.deleteById(String.valueOf(id));
+        userDao.deleteById(id);
     }
 }

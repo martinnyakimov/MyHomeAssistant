@@ -41,9 +41,10 @@ public class UserController {
 
     public static String updateUser(Request request, Response response) throws SQLException {
         RequestParser parser = new RequestParser(request);
+        int id = Integer.valueOf(request.params("id"));
 
-        if (UserService.getUserByUUID(parser.get("uuid")) == null) {
-            UserService.updateUser(Integer.valueOf(request.params("id")), parser.get("name"), parser.get("email"), parser.get("uuid"));
+        if (UserService.getUserByUUID(parser.get("uuid"), id) == null) {
+            UserService.updateUser(id, parser.get("name"), parser.get("email"), parser.get("uuid"));
             return new SuccessResponse().toString();
         }
         return new ErrorResponse("User with this UUID already exists.").toString();
