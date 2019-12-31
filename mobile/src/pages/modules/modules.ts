@@ -15,8 +15,8 @@ export class ModulesPage {
   constructor(public navCtrl: NavController) {
     this.modules.push(
       {title: 'Music', component: MusicPage, icon: 'musical-note'},
-      {title: 'Weather', component: WeatherPage, icon: 'sunny'},
-      {title: 'Security logs', component: SecurityPage, icon: 'videocam'},
+      {title: 'Weather settings', component: WeatherPage, icon: 'partly-sunny'},
+      {title: 'Security log', component: SecurityPage, icon: 'videocam'},
       {title: 'File storage', component: StoragePage, icon: 'folder'},
     );
   }

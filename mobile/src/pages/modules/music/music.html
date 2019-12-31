@@ -25,9 +25,11 @@
         <ion-label text-right><strong>Actions</strong></ion-label>
       </ion-item>
       <div *ngFor="let song of songs">
-        <ion-item >
+        <ion-item>
           <ion-label (click)="songDetails(song['id'])">
-            <span *ngIf="song['title'] != null || song['title'] != ''">{{ song['title'] }}</span>
+            <span *ngIf="song['title'] != null || song['title'] != ''">
+              {{ song['title'] }}
+            </span>
             <span *ngIf="song['title'] == null || song['title'] == ''"><em>No title</em></span>
           </ion-label>
           <ion-label text-right>

@@ -47,7 +47,7 @@ export class StoragePage {
     window.open(Constants.API_URL + "modules/storage/download/" + title);
   }
 
-  getFileName(event) {
+  prepareUpload(event) {
     this.file = event.target.files[0];
     this.fileName = this.file['name'];
     this.isFileSelected = this.fileName != null && this.fileName != '';

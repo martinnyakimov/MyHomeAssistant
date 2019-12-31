@@ -17,7 +17,7 @@
     <p *ngIf="isFileSelected">Selected file: <i>{{ file['name'] }}</i></p>
 
     <div *ngIf="!isFileSelected">
-      <input type="file" (change)="getFileName($event)" id="file-input"/>
+      <input type="file" (change)="prepareUpload($event)" id="file-input"/>
       <label for="file-input" ion-button>
         <ion-icon name="document" class="button-icon"></ion-icon>
         Select file
@@ -44,7 +44,7 @@
         <ion-icon name="add" class="button-icon"></ion-icon>
         Add file
       </button>
-      <button ion-button (click)="generateZIP()">
+      <button ion-button *ngIf="files.length > 0" (click)="generateZIP()">
         <ion-icon name="copy" class="button-icon"></ion-icon>
         Generate backup
       </button>
