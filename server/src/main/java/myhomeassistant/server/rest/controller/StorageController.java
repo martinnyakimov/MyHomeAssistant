@@ -29,4 +29,9 @@ public class StorageController {
         StorageService.generateZIP();
         return new SuccessResponse().toString();
     }
+
+    public static String deleteFile(Request request, Response response) {
+        StorageService.deleteFile(request.params("file"));
+        return new SuccessResponse().toString();
+    }
 }

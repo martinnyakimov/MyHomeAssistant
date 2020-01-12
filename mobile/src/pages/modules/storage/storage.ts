@@ -47,6 +47,11 @@ export class StoragePage {
     window.open(Constants.API_URL + "modules/storage/download/" + title);
   }
 
+  async delete(title: String) {
+    await this.apiProvider.deleteFile(title);
+    this.showIndexMode();
+  }
+
   prepareUpload(event) {
     this.file = event.target.files[0];
     this.fileName = this.file['name'];

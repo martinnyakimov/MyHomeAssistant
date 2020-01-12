@@ -1,6 +1,8 @@
 package myhomeassistant.server.rest.service;
 
 import myhomeassistant.server.rest.RequestParser;
+import myhomeassistant.server.util.Constants;
+import myhomeassistant.server.util.MainUtil;
 import spark.Response;
 
 import javax.servlet.http.HttpServletResponse;
@@ -89,5 +91,12 @@ public class StorageService {
         }
         zipOutputStream.closeEntry();
         fileInputStream.close();
+    }
+
+    public static void deleteFile(String title) {
+        File file = new File("storage/" + title);
+        if (!file.delete()) {
+            MainUtil.textToSpeech(Constants.ERROR);
+        }
     }
 }

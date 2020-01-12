@@ -42,6 +42,7 @@ public class Routes {
                     get("download/:file", StorageController::download);
                     post("upload", StorageController::upload);
                     get("generateZIP", StorageController::generateZIP);
+                    post(":file/delete", StorageController::deleteFile);
                 });
                 path("security/", () -> {
                     get("log", SecurityLogController::getLog);

@@ -106,6 +106,10 @@ export class ApiProvider {
     return await this.performGetRequest("modules/storage/generateZIP");
   }
 
+  public async deleteFile(title: String) {
+    return await this.performPostRequest("modules/storage/" + title + "/delete", {});
+  }
+
   /*========================= REQUESTS =========================*/
   private async performGetRequest(route: String) {
     return await this.http.get(Constants.API_URL + route).toPromise()
