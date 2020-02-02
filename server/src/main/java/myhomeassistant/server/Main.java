@@ -28,6 +28,10 @@ public class Main {
 
     public static void main(String[] args) throws SQLException, IOException {
         // Disable info messages, show only warnings and errors
+        initExceptionHandler((e) -> {
+            printErrorMessage("The server is already running!");
+            System.exit(0);
+        });
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         root.setLevel(Level.ERROR);
 
@@ -41,13 +45,6 @@ public class Main {
             // Init database
             DatabaseConnection databaseConnection = new DatabaseConnection();
             databaseConnection.initDatabase();
-
-            // Get IP
-            ProcessBuilder pb = new ProcessBuilder("bash", "-c", Constants.COMMAND_GET_IP);
-            final String IP = IOUtils.toString(pb.start().getInputStream(), StandardCharsets.UTF_8);
-
-            System.out.println("Welcome to " + printBoldString("MyHomeAssistant " + VERSION) + "!");
-            System.out.println("Device's IP: " + printBoldString(IP));
 
             // Init console and security log
             final ExecutorService pool = Executors.newFixedThreadPool(2);
@@ -67,6 +64,19 @@ public class Main {
     }
 
     private static void console() {
+        // Get IP
+        ProcessBuilder pb = new ProcessBuilder("bash", "-c", Constants.COMMAND_GET_IP);
+
+        String IP = null;
+        try {
+            IP = IOUtils.toString(pb.start().getInputStream(), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            printErrorMessage("Error! Failed to get IP address.");
+        }
+
+        System.out.println("Welcome to " + printBoldString("MyHomeAssistant " + VERSION) + "!");
+        System.out.println("Device's IP: " + printBoldString(IP));
+
         Scanner sc = new Scanner(System.in);
         System.out.println(" ========================= " + printBoldString("Console (voice command simulation)") + " ========================= ");
         while (true) {
