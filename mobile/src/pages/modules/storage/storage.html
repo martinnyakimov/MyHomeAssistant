@@ -40,7 +40,7 @@
   </div>
   <div *ngIf="mode == 'index'">
     <div padding-top text-center>
-      <button ion-button color="secondary" (click)="mode = 'add'">
+      <button ion-button color="secondary" (click)="mode = 'add'" *ngIf="!isConnectionRemote">
         <ion-icon name="add" class="button-icon"></ion-icon>
         Add file
       </button>
@@ -49,6 +49,11 @@
         Generate backup
       </button>
     </div>
+    <ion-card class="info-card" margin-top *ngIf="isConnectionRemote">
+      <ion-card-content text-center>
+        The connection with the server is remote and file uploading is <strong>not</strong> supported.
+      </ion-card-content>
+    </ion-card>
     <ion-list>
       <ion-item>
         <ion-label><strong>Title</strong></ion-label>

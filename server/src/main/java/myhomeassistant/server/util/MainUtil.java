@@ -4,6 +4,7 @@ import com.github.myhomeassistant.util.MHAUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
+import java.util.Random;
 
 public class MainUtil {
     private static String FORMAT_RESET = "\033[0m";
@@ -24,6 +25,11 @@ public class MainUtil {
 
     public static String selectRandomElementFromArray(String[] array) {
         return array[(int) (Math.random() * array.length)];
+    }
+
+    public static int localTunnelGetRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(899) + 101; // Random number between 101 and 999
     }
 
     public static void printErrorMessage(String message) {

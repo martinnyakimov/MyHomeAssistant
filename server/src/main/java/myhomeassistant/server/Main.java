@@ -8,6 +8,7 @@ import myhomeassistant.server.rest.Routes;
 import myhomeassistant.server.service.ActionToClassMapper;
 import myhomeassistant.server.service.NLPService;
 import myhomeassistant.server.util.Constants;
+import myhomeassistant.server.util.MainUtil;
 import myhomeassistant.server.util.UserInputObject;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.LoggerFactory;
@@ -65,17 +66,29 @@ public class Main {
 
     private static void console() {
         // Get IP
-        ProcessBuilder pb = new ProcessBuilder("bash", "-c", Constants.COMMAND_GET_IP);
+        ProcessBuilder getIP = new ProcessBuilder("bash", "-c", Constants.COMMAND_GET_IP);
 
         String IP = null;
         try {
-            IP = IOUtils.toString(pb.start().getInputStream(), StandardCharsets.UTF_8);
+            IP = IOUtils.toString(getIP.start().getInputStream(), StandardCharsets.UTF_8);
         } catch (IOException e) {
             printErrorMessage("Error! Failed to get IP address.");
         }
 
+        int randomNum = MainUtil.localTunnelGetRandomNumber();
+        boolean hasLocalTunnelFailed = false;
+        try {
+            Runtime.getRuntime().exec("lt -s mha" + randomNum + " -p 8080");
+        } catch (IOException e) {
+            hasLocalTunnelFailed = true;
+            printErrorMessage("Error! Failed to start local tunnel.");
+        }
+
         System.out.println("Welcome to " + printBoldString("MyHomeAssistant " + VERSION) + "!");
-        System.out.println("Device's IP: " + printBoldString(IP));
+        System.out.println("Device's IP: " + printBoldString(IP.replace("\n", "")));
+        if (!hasLocalTunnelFailed) {
+            System.out.println("URL for remote connection: " + printBoldString("https://mha" + randomNum + ".localtunnel.me \n"));
+        }
 
         Scanner sc = new Scanner(System.in);
         System.out.println(" ========================= " + printBoldString("Console (voice command simulation)") + " ========================= ");

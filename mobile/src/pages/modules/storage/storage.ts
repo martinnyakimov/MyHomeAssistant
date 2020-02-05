@@ -16,6 +16,7 @@ export class StoragePage {
   fileName: String = null;
   isFileSelected: boolean = this.fileName != null && this.fileName != '';
   isUploading: boolean = false;
+  isConnectionRemote: boolean = Constants.IS_CONNECTION_REMOTE;
 
   constructor(public navCtrl: NavController, public apiProvider: ApiProvider) {
   }

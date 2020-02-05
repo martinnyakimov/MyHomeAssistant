@@ -24,7 +24,7 @@ export class HomePage {
   }
 
   async ngOnInit() {
-    this.serverIp = Constants.IP;
+    this.serverIp = Constants.IP_OR_URL;
     this.serverVersion = await this.apiProvider.getServerVersion();
     this.isConnected = !isEmpty(this.serverIp) && this.serverVersion != null;
 
