@@ -18,6 +18,7 @@ export class HomePage {
   serverIp: string = null;
   serverVersion: number;
   isConnected: boolean;
+  isConnectionRemote: boolean = Constants.IS_CONNECTION_REMOTE;
 
   constructor(public speechRecognition: SpeechRecognition, public uiUtil: UIUtil, public deviceUtil: DeviceUtil,
               public navCtrl: NavController, public apiProvider: ApiProvider) {

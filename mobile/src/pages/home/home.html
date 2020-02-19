@@ -9,7 +9,7 @@
 
 <ion-content padding text-center>
   <div *ngIf="isConnected">
-    <div *ngIf="this.deviceUtil.isCordova()">
+    <div *ngIf="this.deviceUtil.isCordova() && !isConnectionRemote">
       <button ion-button large (click)="startListening()">
         <ion-icon name="mic"></ion-icon>
       </button>
@@ -17,6 +17,11 @@
         <ion-icon name="mic-off"></ion-icon>
       </button>
     </div>
+    <ion-card class="warning-card" margin-top *ngIf="isConnectionRemote">
+      <ion-card-content text-center>
+        The connection with the server is remote and voice commands are <strong>not</strong> supported.
+      </ion-card-content>
+    </ion-card>
     <div *ngIf="!this.deviceUtil.isCordova()">
       <ion-card class="warning-card" margin-top>
         <ion-card-content>
