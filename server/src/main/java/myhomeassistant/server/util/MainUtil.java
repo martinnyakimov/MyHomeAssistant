@@ -2,13 +2,15 @@ package myhomeassistant.server.util;
 
 import com.github.myhomeassistant.util.MHAUtils;
 import org.apache.commons.io.IOUtils;
+import xyz.dmanchon.ngrok.client.NgrokTunnel;
 
 import java.io.*;
-import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MainUtil {
-    private static String FORMAT_RESET = "\033[0m";
 
+    private static String FORMAT_RESET = "\033[0m";
+    private static NgrokTunnel tunnel;
 
     public static void textToSpeech(String answer) {
         try {
@@ -25,11 +27,6 @@ public class MainUtil {
 
     public static String selectRandomElementFromArray(String[] array) {
         return array[(int) (Math.random() * array.length)];
-    }
-
-    public static int localTunnelGetRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(899) + 101; // Random number between 101 and 999
     }
 
     public static void printErrorMessage(String message) {
@@ -72,5 +69,21 @@ public class MainUtil {
 
     public static String sendEmailNotification(String userEmail, String dateTime) {
         return "wget --post-data 'email=" + userEmail + "&dateTime=" + dateTime + "' " + Constants.API_URL + "sendEmailNotification -O/dev/null";
+    }
+
+    public static String startLocalTunnel() throws Exception {
+        Runtime.getRuntime().exec("ngrok start --none"); // Start ngrok
+        TimeUnit.SECONDS.sleep(3);
+
+        tunnel = new NgrokTunnel(8080);
+        return tunnel.url();
+    }
+
+    public static void exit() {
+        try {
+            tunnel.close();
+        } catch (Exception e) {
+        }
+        System.exit(0);
     }
 }

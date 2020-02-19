@@ -27,16 +27,17 @@ public class Main {
 
     public static final String VERSION = "0.1";
 
-    public static void main(String[] args) throws SQLException, IOException {
+    public static void main(String[] args) throws SQLException {
         // Disable info messages, show only warnings and errors
         initExceptionHandler((e) -> {
             printErrorMessage("The server is already running!");
-            System.exit(0);
+            MainUtil.exit();
         });
         Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
         root.setLevel(Level.ERROR);
 
         if (checkRequirements()) {
+            System.out.println(printBoldString("Loading... Please wait."));
             // Init web server
             webSocket("/socket", WebSocketHandler.class);
             staticFiles.location("/public");
@@ -67,7 +68,6 @@ public class Main {
     private static void console() {
         // Get IP
         ProcessBuilder getIP = new ProcessBuilder("bash", "-c", Constants.COMMAND_GET_IP);
-
         String IP = null;
         try {
             IP = IOUtils.toString(getIP.start().getInputStream(), StandardCharsets.UTF_8);
@@ -75,29 +75,30 @@ public class Main {
             printErrorMessage("Error! Failed to get IP address.");
         }
 
-        int randomNum = MainUtil.localTunnelGetRandomNumber();
-        boolean hasLocalTunnelFailed = false;
+        String url = null;
         try {
-            Runtime.getRuntime().exec("lt -s mha" + randomNum + " -p 8080");
-        } catch (IOException e) {
-            hasLocalTunnelFailed = true;
+            url = MainUtil.startLocalTunnel();
+        } catch (Exception e) {
             printErrorMessage("Error! Failed to start local tunnel.");
         }
 
         System.out.println("Welcome to " + printBoldString("MyHomeAssistant " + VERSION) + "!");
         System.out.println("Device's IP: " + printBoldString(IP.replace("\n", "")));
-        if (!hasLocalTunnelFailed) {
-            System.out.println("URL for remote connection: " + printBoldString("https://mha" + randomNum + ".localtunnel.me \n"));
+        if (url != null) {
+            System.out.println("URL for remote connection: " + printBoldString(url) + " (it changes on every start)");
         }
 
         Scanner sc = new Scanner(System.in);
-        System.out.println(" ========================= " + printBoldString("Console (voice command simulation)") + " ========================= ");
+        System.out.println("\n========================= " + printBoldString("Console (voice command simulation)") + " =========================");
         while (true) {
+            System.out.print("> ");
             try {
-                System.out.print("> ");
                 String input = sc.nextLine();
+
                 if (input.equals("retrain")) {
                     NLPService.trainCategorizerModel();
+                } else if (input.equals("exit")) {
+                    MainUtil.exit();
                 } else {
                     ActionToClassMapper.detectActionAndRedirectToClass(new UserInputObject(null, input));
                 }
