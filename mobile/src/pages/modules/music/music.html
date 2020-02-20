@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div>
     <div padding-top padding-left text-center>
       <button ion-button color="secondary" (click)="add()">

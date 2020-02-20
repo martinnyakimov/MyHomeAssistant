@@ -24,6 +24,11 @@ export class UsersPage {
     UsersPage.users = await this.apiProvider.getAllUsers();
   }
 
+  async refresh(refresher) {
+    await this.ngOnInit();
+    refresher.complete();
+  }
+
   get users() {
     return UsersPage.users;
   }

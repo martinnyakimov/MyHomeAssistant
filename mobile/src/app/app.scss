@@ -65,3 +65,7 @@ ion-title {
 .activated {
   background-color: transparent !important;
 }
+
+.has-refresher > .scroll-content {
+  border: none;
+}

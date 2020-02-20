@@ -23,6 +23,11 @@ export class MusicPage {
     MusicPage.isThereActiveSong = await this.apiProvider.checkForActiveSong();
   }
 
+  async refresh(refresher) {
+    await this.ngOnInit();
+    refresher.complete();
+  }
+
   get songs() {
     return MusicPage.songs;
   }
@@ -41,20 +46,20 @@ export class MusicPage {
 
   async play(id: number) {
     await this.apiProvider.playSong(id);
-    await this.refresh();
+    await this.updateList();
   }
 
   async delete(id: number) {
     await this.apiProvider.deleteSong(id);
-    await this.refresh();
+    await this.updateList();
   }
 
   async stop() {
     await this.apiProvider.stopMusic();
-    await this.refresh();
+    await this.updateList();
   }
 
-  async refresh() {
+  async updateList() {
     await this.events.publish("musicRefresh", await this.apiProvider.getAllSongs(),
       await this.apiProvider.checkForActiveSong());
   }

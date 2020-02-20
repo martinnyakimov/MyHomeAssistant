@@ -16,6 +16,11 @@ export class SecurityPage {
     await this.getLogList();
   }
 
+  async refresh(refresher) {
+    await this.ngOnInit();
+    refresher.complete();
+  }
+
   async delete(id: number) {
     await this.apiProvider.deleteLogItem(id);
     await this.getLogList();

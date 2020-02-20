@@ -22,6 +22,7 @@ export class StoragePage {
   }
 
   async ngOnInit() {
+    this.files = [];
     let files = await this.apiProvider.getAllFiles();
     let totalSize = 0;
     for (let file in files) {
@@ -30,6 +31,11 @@ export class StoragePage {
       this.files.push({'title': file, 'size': this.prepareFileSize(size)});
     }
     this.totalFilesSize = this.prepareFileSize(totalSize);
+  }
+
+  async refresh(refresher) {
+    await this.ngOnInit();
+    refresher.complete();
   }
 
   async generateZIP() {

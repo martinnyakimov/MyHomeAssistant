@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content>
+  <ion-refresher (ionRefresh)="refresh($event)" *ngIf="mode == 'index'">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div text-center padding *ngIf="mode == 'add'">
     <ion-card class="info-card" margin-top *ngIf="!isFileSelected">
       <ion-card-content>
