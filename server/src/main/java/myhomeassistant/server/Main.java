@@ -85,7 +85,7 @@ public class Main {
         System.out.println("Welcome to " + printBoldString("MyHomeAssistant " + VERSION) + "!");
         System.out.println("Device's IP: " + printBoldString(IP.replace("\n", "")));
         if (url != null) {
-            System.out.println("URL for remote connection: " + printBoldString(url) + " (it changes on every start)");
+            System.out.println("Ngrok ID for remote connection: " + printBoldString(url) + " (it changes on every start)");
         }
 
         Scanner sc = new Scanner(System.in);

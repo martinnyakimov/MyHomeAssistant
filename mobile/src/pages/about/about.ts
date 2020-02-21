@@ -30,7 +30,7 @@ export class AboutPage {
     }
   }
 
-  saveIP() {
+  save() {
     if (trim(this.serverIp) == '') {
       localStorage.removeItem("SERVER_IP");
       this.uiUtil.showToast({

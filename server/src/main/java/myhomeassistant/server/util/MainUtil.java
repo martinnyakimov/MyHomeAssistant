@@ -76,7 +76,7 @@ public class MainUtil {
         TimeUnit.SECONDS.sleep(3);
 
         tunnel = new NgrokTunnel(8080);
-        return tunnel.url();
+        return tunnel.url().replace("http://", "").replace(".ngrok.io", ""); // Return only ID
     }
 
     public static void exit() {

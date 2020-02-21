@@ -26,22 +26,22 @@
       <ion-item id="ip-change">
         <ion-label>IP or URL</ion-label>
         <ion-input [(ngModel)]="serverIp"></ion-input>
-        <button ion-button item-end (click)="saveIP()">
+        <button ion-button item-end (click)="save()">
           <ion-icon name="checkmark" class="button-icon"></ion-icon>
           Save
         </button>
       </ion-item>
       <ion-item id="ngrok-change">
-        <ion-label>Ngrok ID (before <em>.ngrok.io</em>)</ion-label>
-        <ion-input [(ngModel)]="ngrokId"></ion-input>
+        <ion-label>Ngrok ID</ion-label>
+        <ion-input [(ngModel)]="ngrokId"  autocapitalize="off"></ion-input>
         <button ion-button item-end (click)="saveNgrok()">
           <ion-icon name="checkmark" class="button-icon"></ion-icon>
-          Save
+          Update URL
         </button>
       </ion-item>
       <ion-card class="info-card" margin-top>
         <ion-card-content text-center>
-          After changing the IP address, please restart the application!
+          After changing the IP address/Ngrok ID, please restart the application!
         </ion-card-content>
       </ion-card>
     </div>
