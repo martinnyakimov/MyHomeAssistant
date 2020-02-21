@@ -20,13 +20,21 @@
     </div>
   </div>
   <div>
-    <h3 [class]="!isConnected ? 'error-label' : null">[Server] IP</h3>
+    <h3 [class]="!isConnected ? 'error-label' : null">[Server] Connection</h3>
     <hr/>
     <div>
       <ion-item id="ip-change">
-        <ion-label>IP</ion-label>
+        <ion-label>IP or URL</ion-label>
         <ion-input [(ngModel)]="serverIp"></ion-input>
-        <button ion-button item-end (click)="save()">
+        <button ion-button item-end (click)="saveIP()">
+          <ion-icon name="checkmark" class="button-icon"></ion-icon>
+          Save
+        </button>
+      </ion-item>
+      <ion-item id="ngrok-change">
+        <ion-label>Ngrok ID (before <em>.ngrok.io</em>)</ion-label>
+        <ion-input [(ngModel)]="ngrokId"></ion-input>
+        <button ion-button item-end (click)="saveNgrok()">
           <ion-icon name="checkmark" class="button-icon"></ion-icon>
           Save
         </button>

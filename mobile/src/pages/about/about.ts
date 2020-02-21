@@ -13,6 +13,7 @@ export class AboutPage {
   totalStorage: number;
   freeStoragePercentage: number;
   serverIp: string;
+  ngrokId: string;
   isConnected: boolean;
 
   constructor(public apiProvider: ApiProvider, public uiUtil: UIUtil) {
@@ -29,7 +30,7 @@ export class AboutPage {
     }
   }
 
-  save() {
+  saveIP() {
     if (trim(this.serverIp) == '') {
       localStorage.removeItem("SERVER_IP");
       this.uiUtil.showToast({
@@ -40,5 +41,10 @@ export class AboutPage {
       localStorage.setItem("SERVER_IP", this.serverIp);
       this.uiUtil.savedItemToast({status: Constants.SUCCESS}, "IP address");
     }
+  }
+
+  saveNgrok() {
+    localStorage.setItem("SERVER_IP", "http://" + this.ngrokId + ".ngrok.io/");
+    this.uiUtil.savedItemToast({status: Constants.SUCCESS}, "Ngrok URL");
   }
 }
