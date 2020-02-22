@@ -72,7 +72,7 @@ public class MainUtil {
     }
 
     public static String startLocalTunnel() throws Exception {
-        Runtime.getRuntime().exec("ngrok start --none"); // Start ngrok
+        Runtime.getRuntime().exec("./ngrok start --none"); // Start ngrok
         TimeUnit.SECONDS.sleep(3);
 
         tunnel = new NgrokTunnel(8080);
