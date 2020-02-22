@@ -10,10 +10,10 @@
 <ion-content padding text-center>
   <div *ngIf="isConnected">
     <div *ngIf="this.deviceUtil.isCordova() && !isConnectionRemote">
-      <button ion-button large (click)="startListening()">
+      <button ion-button large (click)="startListening()" class="voice-commands-button">
         <ion-icon name="mic"></ion-icon>
       </button>
-      <button ion-button large (click)="stopListening()" *ngIf="this.deviceUtil.isIos()">
+      <button ion-button large (click)="stopListening()" class="voice-commands-button" *ngIf="this.deviceUtil.isIos()">
         <ion-icon name="mic-off"></ion-icon>
       </button>
     </div>
@@ -28,6 +28,27 @@
           Your device doesn't support voice commands.
         </ion-card-content>
       </ion-card>
+    </div>
+    <div class="rooms">
+      <ion-card>
+        <img src="assets/imgs/living-room.jpg" alt="Living room"/>
+        <div class="card-title">Living room</div>
+        <div class="card-subtitle">
+          <ion-icon name="thermometer"></ion-icon>
+          <strong>Room temperature: {{ roomTemperature }}</strong>
+        </div>
+      </ion-card>
+    </div>
+    <div>
+      <div id="city" *ngIf="cityPicture != null">
+        <ion-card>
+          <img src="{{ cityPicture }}" alt="{{ city }}"/>
+          <div class="card-title">{{ city }}</div>
+          <div class="card-subtitle">
+            <strong>{{ cityTemperature }}</strong>
+          </div>
+        </ion-card>
+      </div>
     </div>
   </div>
   <div *ngIf="!isConnected">

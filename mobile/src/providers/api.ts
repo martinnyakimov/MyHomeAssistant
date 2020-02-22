@@ -14,6 +14,14 @@ export class ApiProvider {
     return await this.performGetRequest("version");
   }
 
+  public async getRoomTemperature() {
+    return await this.performGetRequest("roomTemperature");
+  }
+
+  public async getCityTemperature() {
+    return await this.performGetRequest("cityTemperature");
+  }
+
   /*========================= USERS =========================*/
   public async getAllUsers() {
     return setZeroLengthIfEmpty(await this.performGetRequest("users"));

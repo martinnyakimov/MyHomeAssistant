@@ -1,3 +1,43 @@
-page-home {
+.voice-commands-button {
+  background-color: transparent;
+  box-shadow: none;
+}
 
+.voice-commands-button {
+  ion-icon {
+    color: $primary-color;
+    font-size: 35px;
+  }
+}
+
+.rooms, #city {
+  img {
+    filter: brightness(50%);
+  }
+
+  ion-card {
+    position: relative;
+    text-align: center;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 30%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  ion-icon {
+    font-size: 1.0em;
+  }
+
+  .card-subtitle {
+    font-size: 1.3em;
+    position: absolute;
+    top: 52%;
+    width: 100%;
+    color: #fff;
+  }
 }

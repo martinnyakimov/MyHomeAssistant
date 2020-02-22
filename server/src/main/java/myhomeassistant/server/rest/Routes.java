@@ -14,6 +14,9 @@ public class Routes {
         get("/", (request, response) -> "<html><body><h1 style='text-align: center;'>MyHomeAssistant</h2></body></html>");
         path("api/", () -> {
             get("version", (request, response) -> Main.VERSION);
+            get("roomTemperature", HomeDataController::getRoomTemperature);
+            get("cityTemperature", HomeDataController::getCityTemperature);
+
             // Users
             get("users", UserController::getAllUsers);
             path("users/", () -> {
